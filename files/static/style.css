@@ -1,0 +1,14 @@
+
+#user-info{
+    border: 1px solid #000000;
+    margin-top: 20px;
+}
+
+td, th{
+    border: 1px solid #000000;
+    padding: 3px 10px 3px 10px;
+}
+
+.action{
+    display: inline-block;
+}

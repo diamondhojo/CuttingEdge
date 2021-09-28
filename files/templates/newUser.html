@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+    New User
+{% endblock %}
+{% block content%}
+    <br>
+
+    <form method="POST">
+        <h3 align="center">New User</h3>
+        <div class="form-group">
+            {% for col in cols %}
+                <label for={{ col }}>{{ col.replace('_', ' ').title() }}</label>
+                <input type="text" id="{{ col }}" name="{{ col }}" class="form-control"
+                placeholder="Enter {{ col.replace('_', ' ') }}" />
+            {% endfor %}
+            <div align="center">
+                <button class="btn btn-primary" type="submit">Create User</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
