@@ -24,15 +24,9 @@ def updateDB(first_name, last_name, email, address, username, password):
     new_user = User(first_name=first_name, last_name=last_name, email=email, address=address, username=username, password=generate_password_hash(password, method='sha256'))
     db.session.add(new_user)
     db.session.commit()
-    current_user = new_user
-    if not current_user.is_authenticated:
+    if not current_user.is_authenticated: #creating user from sign up page
         login_user(new_user, remember=True)
-        if current_user.is_authenticated:
-            flash("Logging in")
-        else:
-            flash("Logged out")
-    else:
-        flash("logged in")
+        current_user = new_user
     return flash('User Created')
 
 @auth.route("/login", methods=['GET', 'POST'])

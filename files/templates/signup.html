@@ -4,29 +4,29 @@
 {% endblock %}
 {% block content %}
 	<form method="POST">
-	<h3 align="center">Sign Up</h3>
+		<h3 align="center">Sign Up</h3>
 
-	<div class="form-group">
-		{% for col in cols %}
-			<label for={{ col }}>{{ col.replace('_', ' ').title() }}</label>
-			<input
-				type="text"
-				id="{{ col }}"
-				name="{{ col }}"
-				class="form-control"
-				placeholder="Enter {{ col.replace('_', ' ') }}"
-			/>
-		{% endfor %}
+		<div class="form-group">
+			{% for col in cols %}
+				<label for={{ col }}>{{ col.replace('_', ' ').title() }}</label>
+				<input
+					type="text"
+					id="{{ col }}"
+					name="{{ col }}"
+					class="form-control"
+					placeholder="Enter {{ col.replace('_', ' ') }}"
+				/>
+			{% endfor %}
 
-		<label for="password1">Password</label>
-		<input type="password" id="password1" name="password1" class="form-control" placeholder="Enter Password" />
+			<label for="password1">Password</label>
+			<input type="password" id="password1" name="password1" class="form-control" placeholder="Enter Password" />
 
-		<label for="password2">Confirm Password</label>
-		<input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" />
+			<label for="password2">Confirm Password</label>
+			<input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" />
 
-		<div align="center">
-			<button class="btn btn-primary" type="submit">Create User</button>
+			<div align="center">
+				<button class="btn btn-primary" type="submit">Create User</button>
+			</div>
 		</div>
-	</div>
 	</form>
 {% endblock %}

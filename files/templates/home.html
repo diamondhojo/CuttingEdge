@@ -17,14 +17,15 @@
         </tr>
         {% for user in users %}
             <tr>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.address }}</td>
+                {% for col in cols %}
+                    <td>{{ user[col.replace(' ', '_').lower()] }}</td>
+                {% endfor %}
                 <td>
-                    <form class="action" action="/profile/{{ user.id }}">
+                    <form class="action" action="/profile/{{ user.username }}">
                         <input class="action_buttons" type="submit" value="Edit" />
+                    </form>
+                    <form class="action" action="/delete/{{ user.username }}">
+                        <input class="action_buttons" type="submit" value="Delete" />
                     </form>
                 </td>
             </tr>

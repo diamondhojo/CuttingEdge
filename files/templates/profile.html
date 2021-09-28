@@ -2,5 +2,29 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-    {{ username }}
+    <form method="POST">
+        <h3 align="center">Edit Profile</h3>
+
+        <div class="form-group">
+            {% for col in cols %}
+                <label for={{ col }}>{{ col.replace('_', ' ').title() }}:</label>
+                <input
+                    type="text"
+                    id="{{ col }}"
+                    name="{{ col }}"
+                    class="form-control"
+                    value={{ user[col.replace(' ', '_').lower()] }}
+                />
+            {% endfor %}
+            <label for="password1">New Password:</label>
+            <input type="password" id="password1" name="password1" class="form-control" />
+
+            <label for="password2">Confirm New Password:</label>
+            <input type="password" id="password2" name="password2" class="form-control" />
+
+            <div align="center">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}

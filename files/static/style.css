@@ -12,3 +12,13 @@ td, th{
 .action{
     display: inline-block;
 }
+
+h3,
+.navbar,
+.navbar-expand-lg,
+.navbar-dark
+.bg-dark,
+.btn-primary,
+.form-control {
+    margin-bottom: 25px;
+}
