@@ -1,0 +1,2 @@
+- "User logged in as: " at top left corner on base.html
+- validate email button (actually works)

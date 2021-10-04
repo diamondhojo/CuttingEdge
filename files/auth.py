@@ -5,29 +5,9 @@ from .models import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+from datetime import datetime
 
 auth = Blueprint("auth", __name__)
-
-# this gets all the column names
-conn = sqlite3.connect("files/database.db")
-cur = conn.cursor()
-cur.execute("SELECT * FROM User")
-cols = [tuple[0] for tuple in cur.description]
-cols.remove('id')
-cols.remove('date_created')
-cols.remove('password')
-conn.close()
-# capitalizes each word of each string (list item) in all_cols
-cols = [col.title() for col in cols]
-
-def updateDB(first_name, last_name, email, address, username, password):
-    new_user = User(first_name=first_name, last_name=last_name, email=email, address=address, username=username, password=generate_password_hash(password, method='sha256'))
-    db.session.add(new_user)
-    db.session.commit()
-    if not current_user.is_authenticated: #creating user from sign up page
-        login_user(new_user, remember=True)
-        current_user = new_user
-    return flash('User Created')
 
 @auth.route("/login", methods=['GET', 'POST'])
 @auth.route("/", methods=['GET', 'POST'])
@@ -57,16 +37,30 @@ def logout():
 
 @auth.route("/signup", methods=['GET', 'POST'])
 def sign_up():
-    if request.method == 'POST':
-        first_name = request.form.get("First_Name")
-        last_name = request.form.get("Last_Name")
-        email = request.form.get("Email")
-        address = request.form.get("Address")
-        username = request.form.get("Username")
-        password1 = request.form.get("Username")
-        password2 = request.form.get("Username")
+    #removing unnecessary columns that don't need user input
+    signupcols = cols
+    if signupcols.__contains__("id"):
+        signupcols.remove("id")
+    if signupcols.__contains__("password"):
+        signupcols.remove("password")
+    if signupcols.__contains__("employee"):
+        signupcols.remove("employee")
+    if signupcols.__contains__("user_type"):
+        signupcols.remove("user_type")
+    if signupcols.__contains__("date_created"):
+        signupcols.remove("date_created")
+    if signupcols.__contains__("date_updated"):
+        signupcols.remove("date_updated")
 
-        flash(first_name, category='success')
+    if request.method == 'POST':
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        email = request.form.get("email")
+        address = request.form.get("address")
+        username = request.form.get("username")
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+        user_type = str(request.form.get("user_type"))
 
         email_exists = User.query.filter_by(email=email).first()
         address_exists = User.query.filter_by(address=address).first()
@@ -97,11 +91,10 @@ def sign_up():
             flash('Password is too short.', category='error')
 
         else:
-            new_user = User(first_name=first_name, last_name=last_name, email=email, address=address, username=username, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(first_name=first_name, last_name=last_name, email=email, address=address, username=username, password=generate_password_hash(password1, method='sha256'), user_type=user_type, date_created=datetime.now(), date_updated=datetime.now())
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('User Created and Logged In')
             return redirect(url_for('views.home'))
 
-    return render_template("signup.html", user=current_user, cols=cols)
+    return render_template("signup.html", user=current_user, signupcols=signupcols)

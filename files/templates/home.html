@@ -10,15 +10,23 @@
     </form>
     <table id="user-info">
         <tr>
-            {% for col in cols %}
-                <th>{{ col.replace('_', ' ') }}</th>
+            {% for col in homecols %}
+                {% if col == "date_created" %}
+                    <th>Member Since</th>
+                {% else %}
+                    <th>{{ col.replace('_', ' ').title() }}</th>
+                {% endif %}
             {% endfor %}
             <th>Actions</th>
         </tr>
         {% for user in users %}
             <tr>
-                {% for col in cols %}
-                    <td>{{ user[col.replace(' ', '_').lower()] }}</td>
+                {% for col in homecols %}
+                    {% if col == "date_created" %}
+                        <td>{{ user.date_created.strftime("%d/%m/%Y %I:%M:%S %p") }}</td>
+                    {% else %}
+                        <td>{{ user[col.replace(' ', '_').lower()] }}</td>
+                    {% endif %}
                 {% endfor %}
                 <td>
                     <form class="action" action="/profile/{{ user.username }}">
