@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+{% block title %}
+    Edit Employee
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        <h3 align="center">Edit Employee</h3>
+        <div class="form-group">
+            {% for col in empCols %}
+                {% if col == "position" %}
+                    <label for="position">Position:</label>
+                    {% if current_user.position == "Employee" %}
+                        <select name="position" id="position" disabled=True>
+                            <option value="Employee" selected="selected">Employee</option>
+                        </select>
+                        <br><br>
+                    {% elif current_user.position == "Manager" %}
+                        <select name="position" id="position">
+                        {% if employee.position == "Employee" %}
+                            <option value="Employee" selected="selected">Employee</option>
+                            <option value="Manager">Manager</option>
+                        {% elif employee.position == "Manager" %}
+                            <option value="Employee">Employee</option>
+                            <option value="Manager" selected="selected">Manager</option>
+                        {% endif %}
+                        </select>
+                        <br><br>
+                    {% endif %}
+                {% elif col == "password" %}
+                    <label for="password1">{{ col.replace('_', ' ').title() }}</label>
+                    <input  type="password"
+                            id="{{ col }}"
+                            name="password1"
+                            class="form-control"
+                            placeholder="Change {{ col.replace('_', ' ') }}" />
+                    
+                    <label for="password2">Confirm {{ col.replace('_', ' ').title() }}</label>
+                    <input  type="password"
+                            id="{{ col }}"
+                            name="password2"
+                            class="form-control"
+                            placeholder="Confirm {{ col.replace('_', ' ') }}" />
+                {% elif col == "date_created" %}
+                    <label for="date_created">{{ col.replace('_', ' ').title() }}</label>
+                    <input  type="datetime"
+                        id="{{ col }}"
+                        name="date_created"
+                        class="form-control"
+                        placeholder="Enter {{ col.replace('_', ' ') }}"
+                        value={{ employee.date_created.strftime("%d/%m/%Y") }}
+                        disabled=True />
+                {% elif col == "date_updated" %}
+                    <label for="date_updated">{{ col.replace('_', ' ').title() }}</label>
+                    <input  type="datetime"
+                        id="{{ col }}"
+                        name="date_updated"
+                        class="form-control"
+                        placeholder="Enter {{ col.replace('_', ' ') }}"
+                        value={{ employee.date_updated.strftime("%d/%m/%Y") }}
+                        disabled=True />
+                {% else %}
+                    <label for={{ col }}>{{ col.replace('_', ' ').title() }}</label>
+                    <input  type="text"
+                            id="{{ col }}"
+                            name="{{ col }}"
+                            class="form-control"
+                            placeholder="Enter {{ col.replace('_', ' ') }}"
+                            value={{ employee[col.replace(' ', '_').lower()] }} />
+                {% endif %}
+            {% endfor %}
+
+            <div align="center">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

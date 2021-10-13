@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+{% block title %}Edit Client{% endblock %}
+{% block content %}
+    <form method="POST">
+        <h3 align="center">Edit Client</h3>
+        <div class="form-group">
+            {% for col in clientCols %}
+                {% if col == "date_created" %}
+                    <label for="date_created">{{ col.replace('_', ' ').title() }}</label>
+                    <input  type="datetime"
+                        id="{{ col }}"
+                        name="date_created"
+                        class="form-control"
+                        placeholder="Enter {{ col.replace('_', ' ') }}"
+                        value={{ client.date_created.strftime("%d/%m/%Y") }}
+                        disabled=True />
+                {% elif col == "date_updated" %}
+                    <label for="date_updated">{{ col.replace('_', ' ').title() }}</label>
+                    <input  type="datetime"
+                        id="{{ col }}"
+                        name="date_updated"
+                        class="form-control"
+                        placeholder="Enter {{ col.replace('_', ' ') }}"
+                        value={{ client.date_created.strftime("%d/%m/%Y") }}
+                        disabled=True />
+                {% else %}
+                    <label for={{ col }}>{{ col.replace('_', ' ').title() }}:</label>
+                    <input
+                        type="text"
+                        id="{{ col }}"
+                        name="{{ col }}"
+                        class="form-control"
+                        value={{ client[col.replace(' ', '_').lower()] }}
+                    />
+                {% endif %}
+            {% endfor %}
+
+            <div align="center">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

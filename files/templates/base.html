@@ -26,13 +26,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav">
-            {% if user.is_authenticated %}
-              <a class="nav-item nav-link" href="/home">Home</a>
-              <a class="nav-item nav-link" href="/newUser">New User</a>
+            {% if employee.is_authenticated %}
+              <a class="nav-item nav-link" href="/edit-employee/{{ current_user.id }}" id="current_employee">{{ current_user.first_name }} {{ current_user.last_name }} (Position: {{ current_user.position }})</a>
+              <a class="nav-item nav-link" href="/clients">Clients</a>
+              <a class="nav-item nav-link" href="/new-client">New Client</a>
+              {% if current_user.position == "Manager" %}
+                <a class="nav-item nav-link" href="/employees">Employees</a>
+                <a class="nav-item nav-link" href="/new-employee">New Employee</a>
+              {% endif %}
               <a class="nav-item nav-link" href="/logout">Log Out</a>
             {% else %}
               <a class="nav-item nav-link" href="/">Login</a>
-              <a class="nav-item nav-link" href="/signup">Sign Up</a>
             {% endif %}
           </div>
         </div>

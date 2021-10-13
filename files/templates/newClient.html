@@ -1,25 +1,18 @@
 {% extends "base.html" %}
 {% block title %}
-    New User
+    New Client
 {% endblock %}
 {% block content%}
-    <br>
-
     <form method="POST">
-        <h3 align="center">New User</h3>
+        <h3 align="center">New Client</h3>
         <div class="form-group">
-            {% for col in newusercols %}
+            {% for col in clientCols %}
                 <label for={{ col }}>{{ col.replace('_', ' ').title() }}</label>
                 <input type="text" id="{{ col }}" name="{{ col }}" class="form-control"
                 placeholder="Enter {{ col.replace('_', ' ') }}" />
             {% endfor %}
-            <label for="user_type">User Type:</label>
-			<select name="user_type" id="user_type">
-				<option value="User">User</option>
-				<option value="Employee">Employee</option>
-			</select>
             <div align="center">
-                <button class="btn btn-primary" type="submit">Create User</button>
+                <button class="btn btn-primary" type="submit">Create Client</button>
             </div>
         </div>
     </form>

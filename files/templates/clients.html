@@ -1,16 +1,16 @@
   
 {% extends "base.html" %}
 {% block title %}
-    Home
+    Clients
 {% endblock %}
 {% block content%}
     <br>
-    <form action="/newUser">
-        <input type="submit" value="New User" />
+    <form action="/new-client">
+        <input type="submit" value="New Client" />
     </form>
     <table id="user-info">
         <tr>
-            {% for col in homecols %}
+            {% for col in clientCols %}
                 {% if col == "date_created" %}
                     <th>Member Since</th>
                 {% else %}
@@ -19,20 +19,20 @@
             {% endfor %}
             <th>Actions</th>
         </tr>
-        {% for user in users %}
+        {% for client in clients %}
             <tr>
-                {% for col in homecols %}
+                {% for col in clientCols %}
                     {% if col == "date_created" %}
-                        <td>{{ user.date_created.strftime("%d/%m/%Y %I:%M:%S %p") }}</td>
+                        <td>{{ client.date_created.strftime("%d/%m/%Y") }}</td>
                     {% else %}
-                        <td>{{ user[col.replace(' ', '_').lower()] }}</td>
+                        <td>{{ client[col.replace(' ', '_').lower()] }}</td>
                     {% endif %}
                 {% endfor %}
                 <td>
-                    <form class="action" action="/profile/{{ user.username }}">
+                    <form class="action" action="/edit-client/{{ client.id }}">
                         <input class="action_buttons" type="submit" value="Edit" />
                     </form>
-                    <form class="action" action="/delete/{{ user.username }}">
+                    <form class="action" action="/delete-client/{{ client.id }}">
                         <input class="action_buttons" type="submit" value="Delete" />
                     </form>
                 </td>

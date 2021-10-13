@@ -1,0 +1,42 @@
+  
+{% extends "base.html" %}
+{% block title %}
+    Employees
+{% endblock %}
+{% block content%}
+    <br>
+    <form action="/new-employee">
+        <input type="submit" value="New Employee" />
+    </form>
+    <table id="user-info">
+        <tr>
+            {% for col in empCols %}
+                {% if col == "date_created" %}
+                    <th>Member Since</th>
+                {% else %}
+                    <th>{{ col.replace('_', ' ').title() }}</th>
+                {% endif %}
+            {% endfor %}
+            <th>Actions</th>
+        </tr>
+        {% for employee in employees %}
+            <tr>
+                {% for col in empCols %}
+                    {% if col == "date_created" %}
+                        <td>{{ employee.date_created.strftime("%d/%m/%Y") }}</td>
+                    {% else %}
+                        <td>{{ employee[col.replace(' ', '_').lower()] }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>
+                    <form class="action" action="/edit-employee/{{ employee.id }}">
+                        <input class="action_buttons" type="submit" value="Edit" />
+                    </form>
+                    <form class="action" action="/delete-employee/{{ employee.id }}">
+                        <input class="action_buttons" type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

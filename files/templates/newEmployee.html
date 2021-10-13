@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+    New Employee
+{% endblock %}
+{% block content%}
+    <form method="POST">
+        <h3 align="center">New Employee</h3>
+        <div class="form-group">
+            {% for col in empCols %}
+                {% if col == "position" %}
+                    <label for="position">Position:</label>
+                    <select name="position" id="position">
+                        <option value="Employee">Employee</option>
+                        <option value="Manager">Manager</option>
+                    </select>
+                {% elif col == "password" %}
+                    <label for="password1">{{ col.replace('_', ' ').title() }}</label>
+                    <input type="password" id="{{ col }}" name="password1" class="form-control"
+                        placeholder="Enter {{ col.replace('_', ' ') }}" />
+                    
+                        <label for="password2">Confirm {{ col.replace('_', ' ').title() }}</label>
+                        <input type="password" id="{{ col }}" name="password2" class="form-control"
+                            placeholder="Confirm {{ col.replace('_', ' ') }}" />
+                {% else %}
+                    <label for={{ col }}>{{ col.replace('_', ' ').title() }}</label>
+                    <input type="text" id="{{ col }}" name="{{ col }}" class="form-control"
+                        placeholder="Enter {{ col.replace('_', ' ') }}" />
+                {% endif %}
+            {% endfor %}
+            <div align="center">
+                <button class="btn btn-primary" type="submit">Create Employee</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -14,6 +14,9 @@
           name="email"
           class="form-control"
           placeholder="Enter Email"
+          {% if info != "" %}
+            value = {{ info }}
+          {% endif %}
         />
         <label for="password">Password</label>
         <input

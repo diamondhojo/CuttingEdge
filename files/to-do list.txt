@@ -1,2 +1,8 @@
-- "User logged in as: " at top left corner on base.html
+
 - validate email button (actually works)
+- add data field to Client model that allows us to track "Do Not Service" clients
+- change date_updated to last_updated
+
+Bugs:
+- after creating database on startup, 'Jordan' is registered as a client. Add a new client and delete 'Jordan' and you get signed out and can't sign back in
+- address only shows first half when editing employee/client

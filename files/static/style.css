@@ -22,3 +22,17 @@ h3,
 .form-control {
     margin-bottom: 25px;
 }
+
+.navbar,
+.navbar-expand-lg,
+.navbar-dark{
+    height: 75px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+#current_employee {
+    padding-right: 50px;
+}
